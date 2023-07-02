@@ -7,6 +7,7 @@ namespace Nassrallah_Product.Controllers
     public class ProductsController : ControllerBase
     {
         private static List<Product> products = new List<Product>();
+        private static int currentId = 1;
         [HttpGet("GetProducts")]
         public IEnumerable<Product> GetProducts()
         {
@@ -22,10 +23,9 @@ namespace Nassrallah_Product.Controllers
         [HttpPost("AddProduct")]
         public void PostProduct(string name,string description,int price,int quantity)
         {
-            Product p=new Product(name,description,price,quantity);
-
-            p.Id = new Random().Next(1000, 9999);
+            Product p=new Product(currentId,name,description,price,quantity);
             products.Add(p);
+            currentId += 1;
         }
         [HttpPut("UpdateProduct")]
         public IActionResult UpdateProduct(int id,string newName,string newDescription,int price,int quantity)
@@ -33,7 +33,6 @@ namespace Nassrallah_Product.Controllers
             var productFind = products.Find(p => p.Id == id);
             if (productFind != null)
             {
-                productFind.Id= new Random().Next(1000, 9999); ;
                 productFind.Name = newName;
                 productFind.Description = newDescription;
                 productFind.Price = price;
