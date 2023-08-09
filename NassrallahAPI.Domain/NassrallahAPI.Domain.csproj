@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,9 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NassrallahAPI.Application\NassrallahAPI.Application.csproj" />
-    <ProjectReference Include="..\NassrallahAPI.Domain\NassrallahAPI.Domain.csproj" />
-    <ProjectReference Include="..\NassrallahAPI.Infrastructure\NassrallahAPI.Infrastructure.csproj" />
+    <ProjectReference Include="..\NassrallahAPI.Shared\NassrallahAPI.Shared.csproj" />
   </ItemGroup>
 
 </Project>

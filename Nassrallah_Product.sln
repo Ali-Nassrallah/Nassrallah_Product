@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nassrallah_Product", "Nassrallah_Product\Nassrallah_Product.csproj", "{D56DF938-163A-4FC5-9B42-5163EAC50ED5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nassrallah_Product", "Nassrallah_Product\Nassrallah_Product.csproj", "{D56DF938-163A-4FC5-9B42-5163EAC50ED5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NassrallahAPI.Application", "NassrallahAPI.Application\NassrallahAPI.Application.csproj", "{AE72EEFA-FE70-4728-8200-0B9C55A72570}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NassrallahAPI.Domain", "NassrallahAPI.Domain\NassrallahAPI.Domain.csproj", "{8EE3909E-0951-4417-BEE1-FBF23CBCBEF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NassrallahAPI.Infrastructure", "NassrallahAPI.Infrastructure\NassrallahAPI.Infrastructure.csproj", "{7D91201D-C65C-476D-95C8-5A0F28EC7F82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NassrallahAPI.Shared", "NassrallahAPI.Shared\NassrallahAPI.Shared.csproj", "{6CB19A2D-981C-449E-A426-005202A89D40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{D56DF938-163A-4FC5-9B42-5163EAC50ED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D56DF938-163A-4FC5-9B42-5163EAC50ED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D56DF938-163A-4FC5-9B42-5163EAC50ED5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE72EEFA-FE70-4728-8200-0B9C55A72570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE72EEFA-FE70-4728-8200-0B9C55A72570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE72EEFA-FE70-4728-8200-0B9C55A72570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE72EEFA-FE70-4728-8200-0B9C55A72570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EE3909E-0951-4417-BEE1-FBF23CBCBEF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EE3909E-0951-4417-BEE1-FBF23CBCBEF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EE3909E-0951-4417-BEE1-FBF23CBCBEF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EE3909E-0951-4417-BEE1-FBF23CBCBEF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D91201D-C65C-476D-95C8-5A0F28EC7F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D91201D-C65C-476D-95C8-5A0F28EC7F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D91201D-C65C-476D-95C8-5A0F28EC7F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D91201D-C65C-476D-95C8-5A0F28EC7F82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CB19A2D-981C-449E-A426-005202A89D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CB19A2D-981C-449E-A426-005202A89D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CB19A2D-981C-449E-A426-005202A89D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CB19A2D-981C-449E-A426-005202A89D40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

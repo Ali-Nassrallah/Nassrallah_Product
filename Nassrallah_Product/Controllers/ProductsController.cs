@@ -1,61 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Nassrallah_Product;
+﻿using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using NassrallahAPI.Application.DTOs;
+using NassrallahAPI.Application.Queries.ProductQueries;
+using NassrallahAPI.Application.Commands.ProductCommand;
+using NassrallahAPI.Shared;
 
 namespace Nassrallah_Product.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ProductsController : Controller
     {
-        private readonly ProductDbContext _context;
-
-        public ProductsController(ProductDbContext context)
+        private readonly IMediator _mediator;
+        public ProductsController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
+        [HttpGet("GetAllProducts")]
+        public async Task<List<ProductDTO>> Get(GetAllProductsQuery query, CancellationToken cancellationToken) 
+            
+            => await _mediator.Send(query, cancellationToken);
 
-        [HttpGet]
-        public async Task<List<Product>> GetProducts()
-        {
-                          return await _context.Products.ToListAsync();
-        }
+        [HttpGet("GetProductById")]
+        public async Task<ProductDTO> Get(GetProductByIdQuery query, CancellationToken cancellationToken) 
+            => await _mediator.Send(query, cancellationToken);
 
-        [HttpGet("{GetProductById}")]
-        public async Task<Product> GetProductById(int id)
-        {
+        [HttpPost("PostProduct")]
+        public async Task<Response<ProductDTO>> Post(CreateProductCommand command, CancellationToken cancellationToken) 
+            => await _mediator.Send(command, cancellationToken);
+        
+        [HttpPut("UpdateProduct")]
+        public async Task<Response<ProductDTO>> Put(UpdateProductCommand command, CancellationToken cancellationToken)
+            => await _mediator.Send(command, cancellationToken);
 
-            var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
-            return product;
-        }
-
-        [HttpPost("{AddProduct}")]
-        public async Task<Product> AddNewProduct(string Name, string Description,decimal Price,int Quantity)
-            {
-            var newProduct = await _context.Products.AddAsync(new Product(Name, Description, Price, Quantity));
-                await _context.SaveChangesAsync();
-            return newProduct.Entity;
-
-        }
-        [HttpPut("{UpdateProduct}")]
-        public async Task<Product> UpdateProductAsync(int Id,string Name, string Description, decimal Price, int Quantity)
-            {
-            var forUpdate = await _context.Products.FirstOrDefaultAsync(i => i.Id==Id);
-             throw new Exception("Not Found");
-            forUpdate.Update(Name, Description, Price, Quantity);
-            await _context.SaveChangesAsync();
-            return forUpdate;
-            }
-        [HttpDelete("{DeleteProductById}")]
-        public async Task DeleteProductById(int Id)
-        {
-            var forDelete = await _context.Products.FirstOrDefaultAsync(i => i.Id == Id);
-             throw new Exception("Not found");
-            _context.Remove(forDelete);
-            await _context.SaveChangesAsync();
-        }
+        [HttpDelete("DeleteProduct")]
+        public async Task<Response<Unit>> Delete(DeleteProductCommand command, CancellationToken cancellationToken) 
+            => await _mediator.Send(command, cancellationToken);
     }
 }

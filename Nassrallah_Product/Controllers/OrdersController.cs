@@ -1,60 +1,41 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;    
-using Nassrallah_Product;
+﻿using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using NassrallahAPI.Application.DTOs;
+using NassrallahAPI.Application.Queries.OrderQueries;
+using NassrallahAPI.Application.Commands.ProductCommand;
+using NassrallahAPI.Application.Queries.ProductQueries;
+using NassrallahAPI.Application.Commands.OrderCommand;
+using NassrallahAPI.Shared;
+
 namespace Nassrallah_Product.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class OrdersController : Controller
     {
-        private readonly ProductDbContext _context;
+        private readonly IMediator _mediator;
+        public OrdersController(IMediator mediator)
+           => _mediator = mediator;
 
-        public OrdersController(ProductDbContext context)
-        {
-            _context = context;
-        }
+        [HttpGet("GetAllOrders")]
+        public async Task<List<OrderDTO>> Get(GetAllOrdersQuery query, CancellationToken cancellationToken) 
+            => await _mediator.Send(query, cancellationToken);
 
-        [HttpGet]
-        public async Task<List<Order>> GetOrders()
-        {
-            return await _context.Orders.ToListAsync();
-        }
+        [HttpGet("GetOrderById")]
+        public async Task<OrderDTO> Get(GetOrderByIdQuery query, CancellationToken cancellationToken) 
+            => await _mediator.Send(query, cancellationToken);
 
-        [HttpGet("{GetById}")]
-        public async Task<Order> Details(int id)
-        {
-            var order = await _context.Orders.FirstOrDefaultAsync(m => m.Id == id);
-            return order;
-        }
-        [HttpPost("{AddOrder}")]
-        public async Task<Order> Create(int ProductId,decimal totalAmount)
-        {
-            var order = new Order(ProductId,totalAmount);
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-            return order;
-        }
+        [HttpPost("PosOrder")]
+        public async Task<Response<OrderDTO>> Post(CreateOrderCommand command, CancellationToken cancellationToken) 
+            => await _mediator.Send(command, cancellationToken);
 
-        [HttpPut("{UpdateOrder}")]
-        public async Task<Order> UpdateOrderById(int Id, int productId, decimal totalAmount)
-        {
-            var order = await _context.Orders.FirstOrDefaultAsync(i => i.Id == Id);
-            throw new Exception("Not Found");
-            order.Update(productId, totalAmount);
-            await _context.SaveChangesAsync();
-            return order;
-        }
-        [HttpDelete("{DeleteOrder}")]
-        public async Task DeleteOrderById(int Id)
-        {
-            var forDelete = await _context.Orders.FirstOrDefaultAsync(i => i.Id == Id);
-            throw new Exception("Not Found");
-            _context.Remove(forDelete);
-            await _context.SaveChangesAsync();
-        }
+        [HttpPut("UpdateOrder")]
+        public async Task<Response<OrderDTO>> Put(UpdateOrderCommand command, CancellationToken cancellationToken) 
+            => await _mediator.Send(command, cancellationToken);
+
+        [HttpDelete("DeleteOrder")]
+        public async Task<Response<Unit>> Delete(DeleteOrderCommand command, CancellationToken cancellationToken)
+            => await _mediator.Send(command, cancellationToken);
+
     }
 }

@@ -3,21 +3,21 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Nassrallah_Product;
+using NassrallahAPI.Infrastructure.Data;
 
 #nullable disable
 
-namespace Nassrallah_Product.Migrations
+namespace NassrallahAPI.Infrastructure.Migrations
 {
-    [DbContext(typeof(ProductDbContext))]
-    partial class ProductDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(AppDBContext))]
+    partial class AppDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
 
-            modelBuilder.Entity("Nassrallah_Product.Order", b =>
+            modelBuilder.Entity("NassrallahAPI.Domain.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -26,18 +26,15 @@ namespace Nassrallah_Product.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("TotalAmount")
                         .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Nassrallah_Product.Product", b =>
+            modelBuilder.Entity("NassrallahAPI.Domain.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +54,7 @@ namespace Nassrallah_Product.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("Quuantity")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -67,14 +64,16 @@ namespace Nassrallah_Product.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Nassrallah_Product.Product", b =>
+            modelBuilder.Entity("NassrallahAPI.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("Nassrallah_Product.Order", null)
+                    b.HasOne("NassrallahAPI.Domain.Entities.Order", "Order")
                         .WithMany("Products")
                         .HasForeignKey("OrderId");
+
+                    b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Nassrallah_Product.Order", b =>
+            modelBuilder.Entity("NassrallahAPI.Domain.Entities.Order", b =>
                 {
                     b.Navigation("Products");
                 });
